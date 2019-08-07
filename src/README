@@ -1,0 +1,30 @@
+(1) Requirements
+	pthread
+	libcrypto
+	libssl
+	librt
+	boost (uses boost/beast boost/asio)
+
+(2) To get Boost
+wget https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.tar.gz  # as of 8/2019
+tar -xzf boost_1_70_0.tar.gz
+cd boost_1_70_0
+./bootstrap.sh  # build boost build engine
+./b2            # complies boost
+# installs to /usr/local/lib and /usr/local/include
+
+(3) make
+
+(4) ./bitstamp
+
+(5) sample output
+{"event":"bts:subscription_succeeded","channel":"live_trades_btcusd","data":{}}
+{"event":"bts:subscription_succeeded","channel":"live_trades_btcusd","data":{}}{"data": {"microtimestamp": "1565179761172470", "amount": 0.02720324, "buy_order_id": 3913399980, "sell_order_id": 3913399984, "amount_str": "0.02720324", "price_str": "11741.49", "timestamp": "1565179761", "price": 11741.49, "type": 1, "id": 95263628}, "event": "trade", "channel": "live_trades_btcusd"}
+{"event":"bts:subscription_succeeded","channel":"live_trades_btcusd","data":{}}{"data": {"microtimestamp": "1565179761172470", "amount": 0.02720324, "buy_order_id": 3913399980, "sell_order_id": 3913399984, "amount_str": "0.02720324", "price_str": "11741.49", "timestamp": "1565179761", "price": 11741.49, "type": 1, "id": 95263628}, "event": "trade", "channel": "live_trades_btcusd"}{"data": {"microtimestamp": "1565179765107340", "amount": 0.08, "buy_order_id": 3913400246, "sell_order_id": 3913399757, "amount_str": "0.08000000", "price_str": "11750.34", "timestamp": "1565179765", "price": 11750.34, "type": 0, "id": 95263629}, "event": "trade", "channel": "live_trades_btcusd"}
+
+(6) ctrl-c to terminate
+
+
+
+
+
