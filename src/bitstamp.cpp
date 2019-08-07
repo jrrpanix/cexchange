@@ -110,10 +110,10 @@ public:
     if(ec)
       return fail(ec, "connect");
     
-        // Set a timeout on the operation
+    // Set a timeout on the operation
     beast::get_lowest_layer(ws_).expires_after(std::chrono::seconds(30));
     
-        // Perform the SSL handshake
+    // Perform the SSL handshake
     ws_.next_layer().async_handshake(
 				     ssl::stream_base::client,
 				     beast::bind_front_handler(
@@ -136,7 +136,7 @@ public:
 		   websocket::stream_base::timeout::suggested(
 							      beast::role_type::client));
     
-        // Set a decorator to change the User-Agent of the handshake
+    // Set a decorator to change the User-Agent of the handshake
     ws_.set_option(websocket::stream_base::decorator(
 						     [](websocket::request_type& req)
 						     {
