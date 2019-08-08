@@ -49,7 +49,7 @@ To build
  make
 -------------------
 To run
-./simple_example
+./bitstamp
 -------------------
 
 sample output
