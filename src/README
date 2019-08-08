@@ -1,6 +1,6 @@
 
-This file contains a simple tls async websocket api based on boostorg/beast.
-Its meant to listen to listen to messages coming from a secure service.
+This directory contains a simple tls async websocket api based on boostorg/beast.
+Its meant to listen to messages coming from a secure websocket based service.
 
 The api requires the host/service, the port (typically 443) and the subscription.
 It was designed with crypto exchanges in mind.
