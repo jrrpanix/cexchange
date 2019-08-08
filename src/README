@@ -7,7 +7,7 @@ It was designed with crypto exchanges in mind.
 The work is based on examples found here https://github.com/boostorg/beast
 
 
-simple_example.cpp
+simple_example.cpp / bitstamp.cpp same code for now
     this example subscribes to trades on ws.bitstamp.net.
 
     it uses the wsapi.hpp to specify the
@@ -23,7 +23,7 @@ simple_example.cpp
            std::cout << msg << std::endl;
        }
 
-bitstamp.cpp
+async_ssl_bitstamp_allsteps.cpp
     this example is modified code taken from websocket_client_async_ssl.cpp
     under the examples section of https://github.com/boostorg/beast
     it explicitly shows all the stages required establish a secure connection, 

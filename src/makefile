@@ -5,16 +5,20 @@ WEBSOCKET_LIBS =  -lpthread -lcrypto -lssl -lrt
 SRCS = wsapi.cpp
 HDRS = wsapi.hpp
 
+bitstamp: bitstamp.cpp $(SRCS) $(HDRS)
+	g++ $(CFLAGS) $@.cpp $(LIBS) $(WEBSOCKET_LIBS) -o $@
+
 simple_example: simple_example.cpp $(SRCS) $(HDRS)
 	g++ $(CFLAGS) $@.cpp $(SRCS) $(LIBS) $(WEBSOCKET_LIBS) -o $@
 
-
-bitstamp: bitstamp.cpp $(SRCS) $(HDRS)
+async_ssl_bitstamp_allsteps: async_ssl_bitstamp_allsteps.cpp
 	g++ $(CFLAGS) $@.cpp $(LIBS) $(WEBSOCKET_LIBS) -o $@
+
 
 clean:
 	rm -f simple_example
 	rm -f bitstamp
+	rm -f async_ssl_bitstamp_allsteps
 
 
 
