@@ -132,14 +132,11 @@ public:
   }
 
   void on_read(beast::error_code ec, std::size_t bytes_transferred) {
-    //boost::ignore_unused(bytes_transferred);
     if(ec)
       return fail(ec, "read");
-    std::stringstream strm;
-    strm << beast::make_printable(buffer_.data());
-    cb_->recv(strm.str());
+    std::string msg = beast::buffers_to_string(buffer_.data());
+    cb_->recv(msg);
     buffer_.consume(bytes_transferred);
-    //q_->push(boost::beast::buffers_to_string(buffer_.data()));
     do_read();
   }
 

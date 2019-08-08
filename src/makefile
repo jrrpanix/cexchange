@@ -6,7 +6,7 @@ SRCS = wsapi.cpp
 HDRS = wsapi.hpp
 
 bitstamp: bitstamp.cpp $(SRCS) $(HDRS)
-	g++ $(CFLAGS) $@.cpp $(LIBS) $(WEBSOCKET_LIBS) -o $@
+	g++ $(CFLAGS) $@.cpp $(SRCS) $(LIBS) $(WEBSOCKET_LIBS) -o $@
 
 simple_example: simple_example.cpp $(SRCS) $(HDRS)
 	g++ $(CFLAGS) $@.cpp $(SRCS) $(LIBS) $(WEBSOCKET_LIBS) -o $@
