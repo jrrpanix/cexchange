@@ -194,11 +194,10 @@ public:
 	  beast::error_code ec,
 	  std::size_t bytes_transferred)
   {
-    boost::ignore_unused(bytes_transferred);
-    
     if(ec)
       return fail(ec, "read");
     std::cout << beast::make_printable(buffer_.data()) << std::endl;
+    buffer_.consume(bytes_transferred);
     do_read();
   }
   
