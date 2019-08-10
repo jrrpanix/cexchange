@@ -45,11 +45,11 @@ To get Boost
     ./b2            # complies boost /usr/local/lib and /usr/local/include
     
 -------------------
-To build
+To build  (will put targets into build directory, build/objects, build/bin)
  make
 -------------------
 To run
-./bitstamp
+./build/bin/bitstamp
 -------------------
 
 sample output

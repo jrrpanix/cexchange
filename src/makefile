@@ -1,25 +1,51 @@
-INCLUDES=-I/usr/local/include -I.. -I. -I../../../include
-CFLAGS = $(INCLUDES) -std=c++17 # -O2 or -g
-#LIBS = -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex -lrt
-WEBSOCKET_LIBS =  -lpthread -lcrypto -lssl -lrt
-SRCS = wsapi.cpp
-HDRS = wsapi.hpp
 
-bitstamp: bitstamp.cpp $(SRCS) $(HDRS)
-	g++ $(CFLAGS) $@.cpp $(SRCS) $(LIBS) $(WEBSOCKET_LIBS) -o $@
 
-simple_example: simple_example.cpp $(SRCS) $(HDRS)
-	g++ $(CFLAGS) $@.cpp $(SRCS) $(LIBS) $(WEBSOCKET_LIBS) -o $@
+INCLUDES   := -I/usr/local/include -I.. -I. -I../../../include
+LIBS       := -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex -lrt -lpthread -lcrypto -lssl
+CFLAGS     := -std=c++17
+BUILD_PATH := ./build
+OBJ_DIR    := $(BUILD_PATH)/objects
+BIN_DIR    := $(BUILD_PATH)/bin
+CXX        := g++
+SRC_EXT    := cpp
 
-async_ssl_bitstamp_allsteps: async_ssl_bitstamp_allsteps.cpp
-	g++ $(CFLAGS) $@.cpp $(LIBS) $(WEBSOCKET_LIBS) -o $@
+SOURCES    := wsapi.cpp
+HEADERS    := wsapi.hpp
 
+OBJECTS    := $(SOURCES:%.$(SRC_EXT)=$(OBJ_DIR)/%.o)
+
+first: build $(BIN_DIR)/bitstamp
+
+build:
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(BIN_DIR)
+
+$(OBJ_DIR)/%.o: %.cpp
+	$(CXX) $(CFLAGS) $(INCLUDES) -o $@ -c $<
+
+.PHONY: all build clean debug release o3
+
+$(BIN_DIR)/bitstamp : bitstamp.cpp $(OBJECTS) $(HEADERS)
+	$(CXX) $(CFLAGS) $(INCLUDES) bitstamp.cpp -o $@ $(OBJECTS) $(LIBS)
+
+$(BIN_DIR)/simple_example : simple_example.cpp $(OBJECTS) $(HEADERS)
+	$(CXX) $(CFLAGS) $(INCLUDES) simple_example.cpp -o $@ $(OBJECTS) $(LIBS)
+
+$(BIN_DIR)/async_ssl_bitstamp_allsteps : async_ssl_bitstamp_allsteps.cpp
+	$(CXX) $(CFLAGS) $(INCLUDES) async_ssl_bitstamp_allsteps.cpp -o $@ $(LIBS)
+
+all: build $(BIN_DIR)/bitstamp $(BIN_DIR)/simple_example $(BIN_DIR)/async_ssl_bitstamp_allsteps
+
+debug: CFLAGS += -DDEBUG -g
+debug: all
+
+release: CFLAGS += -O2
+release: all
+
+o3: CFLAGS += -O3
+o3: all
 
 clean:
-	rm -f simple_example
-	rm -f bitstamp
-	rm -f async_ssl_bitstamp_allsteps
-
-
-
+	-@rm -rvf $(OBJ_DIR)/*
+	-@rm -rvf $(BIN_DIR)/*
 
