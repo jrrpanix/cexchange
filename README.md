@@ -1,2 +1,2 @@
 # cexchange
-access crytpo currency exchanges in c using websockets
+access crytpo currency exchanges in C++ using websockets
