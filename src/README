@@ -7,7 +7,7 @@ It was designed with crypto exchanges in mind.
 The work is based on examples found here https://github.com/boostorg/beast
 
 
-simple_example.cpp / bitstamp.cpp same code for now
+simple_example.cpp, bitstamp.cpp: #( same code for now)
     this example subscribes to trades on ws.bitstamp.net.
 
     it uses the wsapi.hpp to specify the
@@ -22,6 +22,9 @@ simple_example.cpp / bitstamp.cpp same code for now
            void recv(const std::string &msg) {
            std::cout << msg << std::endl;
        }
+
+bitstamp_multi.cpp:
+    this example makes multiple subscritpion requests on the same socket
 
 async_ssl_bitstamp_allsteps.cpp
     this example is modified code taken from websocket_client_async_ssl.cpp
