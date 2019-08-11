@@ -1,0 +1,21 @@
+server {
+       listen 8080;
+       listen              443 ssl;
+       server_name         www.<your_domain>.com;
+       ssl_certificate     /etc/nginx/ssl/www.<your_domain>.com.crt;
+       ssl_certificate_key /etc/nginx/ssl/www.<your_domain>.com.key;
+       ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+       ssl_ciphers         HIGH:!aNULL:!MD5;
+       root /var/www/<your_domain>.com/html;
+       index index.html;
+
+      location /proxy1 {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+	proxy_redirect      http://localhost:3001 https://www.<your_domain>.com/proxy1;
+      }
+}

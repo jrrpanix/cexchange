@@ -1,0 +1,66 @@
+A Backend Nodejs server that will been seen by the client in front of NginX as https
+we are going to access the nodejs client from the path https://<your_domain>.com/proxy1
+note proxy1 can be called thing.  Make adjustments to both the Nginx config and the
+nodejs.  The idea here is Nginx does all the work in in deealing with the secure connection.
+Its the only place that does the encryption and its done between Nginx and the
+end users browser (or whatever they are using to access the web).
+
+client <- https -> | Nginx <-> [nodejs server]
+
+
+
+1) the nginx-config goes in
+
+    /etc/nginx/sites-available/<your_domain>.com
+    server {
+      <... other server stuff here see complete file ...>
+      
+      location /proxy1 {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+	proxy_redirect      http://localhost:3001 https://www.<your_domain>.com/proxy1;
+      }
+    }  
+
+
+
+
+2) the simple nodejs server:
+    listens on port 3001 and is has path /proxy1
+
+    const express = require('express')
+    const app = express()
+    const port = 3001
+
+    app.get('/proxy1', (request, response) => {
+      response.send('Hello from Express!');
+     });
+
+     app.listen(port, (err) => {
+       if (err) {
+          return console.log('something bad happened', err);
+     }
+     console.log(`server is listening on ${port}`);
+    });
+
+
+3) the client will access via
+    https://<your_domain>.com/proxy1
+
+
+4) start nodejs server via
+   node ./server.js
+
+
+5) reload new parameters into Nginx via
+
+   nginx -s reload
+
+
+  
+
+   
