@@ -25,6 +25,7 @@
 #include <sstream>
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
@@ -46,9 +47,10 @@ class session : public std::enable_shared_from_this<session>
   websocket::stream<beast::ssl_stream<beast::tcp_stream>> ws_;
   beast::flat_buffer buffer_;
   std::string host_;
-  std::string text_;
+  std::vector<std::string> subs_;
   wsapi_cb *cb_;
-
+  size_t   sub_send_count_;
+  
 public:
   // Resolver and socket require an io_context
   explicit session(net::io_context& ioc, ssl::context& ctx)
@@ -57,12 +59,13 @@ public:
   }
 
   // Start the asynchronous operation
-  void run(char const* host, char const* port, char const* text, wsapi_cb *cb) {
+  void run(char const* host, char const* port, const std::vector<std::string> &subs, wsapi_cb *cb) {
     // Save these for later
     host_ = host;
-    text_ = text;
+    subs_ = subs;
     cb_ = cb;
-    
+    sub_send_count_ = 0;
+
     // Look up the domain name
     resolver_.async_resolve(host, port, beast::bind_front_handler(&session::on_resolve, shared_from_this()));
   }
@@ -117,14 +120,22 @@ public:
   void on_handshake(beast::error_code ec) {
     if(ec)
       return fail(ec, "handshake");
-    ws_.async_write(net::buffer(text_),beast::bind_front_handler(&session::on_write,shared_from_this()));
+    do_write();
   }
 
+  void do_write() {
+    if (sub_send_count_ < subs_.size()) 
+      ws_.async_write(net::buffer(subs_[sub_send_count_++]),beast::bind_front_handler(&session::on_write,shared_from_this()));
+  }
+  
   void on_write(beast::error_code ec, std::size_t bytes_transferred) {
     boost::ignore_unused(bytes_transferred);
     if(ec)
       return fail(ec, "write");
-    do_read();
+    if (sub_send_count_ < subs_.size())
+      do_write();
+    else
+      do_read();
   }
 
   void do_read() {
@@ -152,7 +163,11 @@ public:
 };
 
 wsapi::wsapi(const char *host, const char *port, const char *sub, wsapi_cb *cb)
-  :host_(host), port_(port), sub_(sub), cb_(cb) {
+  :host_(host), port_(port), subs_(1,sub), cb_(cb) {
+}
+
+wsapi::wsapi(const char *host, const char *port, const std::vector<std::string> &subs, wsapi_cb *cb)
+  :host_(host), port_(port), subs_(subs), cb_(cb) {
 }
 
 void wsapi::start() {
@@ -165,7 +180,7 @@ void wsapi::start() {
   load_root_certificates(ctx);
   
   // Launch the asynchronous operation 
-  std::make_shared<session>(ioc, ctx)->run(host_.c_str(), port_.c_str(), sub_.c_str(), cb_);
+  std::make_shared<session>(ioc, ctx)->run(host_.c_str(), port_.c_str(), subs_, cb_);
   
   // Run the I/O service. The call will return when
   // the socket is closed.
