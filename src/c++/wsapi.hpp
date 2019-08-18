@@ -4,6 +4,7 @@
 //
 // John Reynolds, Cornelia Consulting LLC, 08/2019
 //
+// Distributed under MIT License
 
 class wsapi_cb {
 public:
