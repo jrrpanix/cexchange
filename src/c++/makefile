@@ -3,7 +3,7 @@
 INCLUDES   := -I/usr/local/include -I.. -I. -I../../include
 LIBS       := -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex -lrt -lpthread -lcrypto -lssl
 CFLAGS     := -std=c++17
-BUILD_PATH := ./build
+BUILD_PATH := ./examples/build
 OBJ_DIR    := $(BUILD_PATH)/objects
 BIN_DIR    := $(BUILD_PATH)/bin
 CXX        := g++
