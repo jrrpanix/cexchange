@@ -25,7 +25,7 @@ public:
 int main(int argc, char **argv) {
   if (argc <  3) {
     std::cerr << "usage : <jsonFile> <msgFile>" << std::endl;
-    std::cerr << "genearal_listener ../server_config.json gdax" << std::endl;
+    std::cerr << "./build/bin/general_listener ../server_config.json gdax" << std::endl;
     return 1;
   }
   int cnt = 1;
