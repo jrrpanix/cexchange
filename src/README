@@ -6,8 +6,9 @@ The api requires the host/service, the port (typically 443) and the subscription
 It was designed with crypto exchanges in mind.
 The work is based on examples found here https://github.com/boostorg/beast
 
+Simple Example
 
-simple_example.cpp, bitstamp.cpp: #( same code for now)
+simple_example.cpp
     this example subscribes to trades on ws.bitstamp.net.
 
     it uses the wsapi.hpp to specify the
@@ -46,13 +47,16 @@ To get Boost
     cd boost_1_70_0
     ./bootstrap.sh  # build boost build engine
     ./b2            # complies boost /usr/local/lib and /usr/local/include
-    
+-------------------
+rapidjson if you plan on using the server_config.json and the config.hpp include
+NOT needed for wsapi.hpp    
+
 -------------------
 To build  (will put targets into build directory, build/objects, build/bin)
  make
 -------------------
 To run
-./build/bin/bitstamp
+.examples/build/bin/simple_example
 -------------------
 
 sample output
