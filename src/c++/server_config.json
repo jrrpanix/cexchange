@@ -1,0 +1,55 @@
+{
+    "active" : ["bitstamp", "gdax"],
+    "bitstamp":{
+	"subs": [
+	    {"event": "bts:subscribe", "data": {"channel": "live_trades_btcusd"}},
+	    {"event": "bts:subscribe", "data": {"channel": "live_trades_ethusd"}},
+	    {"event": "bts:subscribe", "data": {"channel": "live_trades_ltcusd"}},
+	    {"event": "bts:subscribe", "data": {"channel": "live_trades_xrpusd"}},
+	    {"event": "bts:subscribe", "data": {"channel": "live_trades_bchusd"}}
+	],
+	"host": "ws.bitstamp.net",
+	"port": "443"
+
+    },
+    "gdax": {
+	"subs": [{
+	    "type": "subscribe",
+	    "product_ids": [
+		"BTC-USD",
+		"ETH-USD",
+		"LTC-USD",
+		"BCH-USD",
+		"XRP-USD",
+		"EOS-USD",
+		"XLM-USD",
+		"ETC-USD",
+		"LINK-USD",
+		"REP-USD",
+		"ZRX-USD",
+		"ALGO-USD"
+	    ],
+	    "channels": [
+		{
+		    "name": "ticker",
+		    "product_ids": [
+			"BTC-USD",
+			"ETH-USD",
+			"LTC-USD",
+			"BCH-USD",
+			"XRP-USD",
+			"EOS-USD",
+			"XLM-USD",
+			"ETC-USD",
+			"LINK-USD",
+			"REP-USD",
+			"ZRX-USD",
+			"ALGO-USD"
+		    ]
+		}
+	    ]
+	}],
+	"host": "ws-feed.gdax.com",
+	"port": "443"
+    }
+}
