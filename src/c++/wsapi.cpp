@@ -143,12 +143,15 @@ public:
   }
 
   void on_read(beast::error_code ec, std::size_t bytes_transferred) {
-    if(ec)
-      return fail(ec, "read");
-    std::string msg = beast::buffers_to_string(buffer_.data());
-    cb_->recv(msg);
-    buffer_.consume(bytes_transferred);
-    do_read();
+    if(ec) {
+      fail(ec, "on_read error, ignoring");
+      do_read();
+    } else {
+      std::string msg = beast::buffers_to_string(buffer_.data());
+      cb_->recv(msg);
+      buffer_.consume(bytes_transferred);
+      do_read();
+    }
   }
 
   void do_close() {
