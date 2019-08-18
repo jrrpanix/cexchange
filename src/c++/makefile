@@ -1,6 +1,6 @@
 
 
-INCLUDES   := -I/usr/local/include -I.. -I. -I../../../include
+INCLUDES   := -I/usr/local/include -I.. -I. -I../../include
 LIBS       := -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex -lrt -lpthread -lcrypto -lssl
 CFLAGS     := -std=c++17
 BUILD_PATH := ./build
@@ -9,12 +9,12 @@ BIN_DIR    := $(BUILD_PATH)/bin
 CXX        := g++
 SRC_EXT    := cpp
 
-SOURCES    := wsapi.cpp
-HEADERS    := wsapi.hpp
+SOURCES    := wsapi.cpp config.cpp
+HEADERS    := wsapi.hpp config.hpp
 
 OBJECTS    := $(SOURCES:%.$(SRC_EXT)=$(OBJ_DIR)/%.o)
 
-first: build $(BIN_DIR)/bitstamp_multi
+all: build $(BIN_DIR)/simple_example
 
 build:
 	@mkdir -p $(OBJ_DIR)
@@ -25,19 +25,8 @@ $(OBJ_DIR)/%.o: %.cpp
 
 .PHONY: all build clean debug release o3
 
-$(BIN_DIR)/bitstamp_multi : bitstamp_multi.cpp $(OBJECTS) $(HEADERS)
-	$(CXX) $(CFLAGS) $(INCLUDES) bitstamp_multi.cpp -o $@ $(OBJECTS) $(LIBS)
-
-$(BIN_DIR)/bitstamp : bitstamp.cpp $(OBJECTS) $(HEADERS)
-	$(CXX) $(CFLAGS) $(INCLUDES) bitstamp.cpp -o $@ $(OBJECTS) $(LIBS)
-
 $(BIN_DIR)/simple_example : simple_example.cpp $(OBJECTS) $(HEADERS)
 	$(CXX) $(CFLAGS) $(INCLUDES) simple_example.cpp -o $@ $(OBJECTS) $(LIBS)
-
-$(BIN_DIR)/async_ssl_bitstamp_allsteps : async_ssl_bitstamp_allsteps.cpp
-	$(CXX) $(CFLAGS) $(INCLUDES) async_ssl_bitstamp_allsteps.cpp -o $@ $(LIBS)
-
-all: build $(BIN_DIR)/bitstamp_multi $(BIN_DIR)/bitstamp $(BIN_DIR)/simple_example $(BIN_DIR)/async_ssl_bitstamp_allsteps
 
 debug: CFLAGS += -DDEBUG -g
 debug: all
