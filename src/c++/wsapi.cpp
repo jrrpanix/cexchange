@@ -50,6 +50,7 @@ class session : public std::enable_shared_from_this<session>
   std::vector<std::string> subs_;
   wsapi_cb *cb_;
   size_t   sub_send_count_;
+  size_t   error_cnt;
   
 public:
   // Resolver and socket require an io_context
@@ -65,7 +66,8 @@ public:
     subs_ = subs;
     cb_ = cb;
     sub_send_count_ = 0;
-
+    error_cnt = 0;
+    
     // Look up the domain name
     resolver_.async_resolve(host, port, beast::bind_front_handler(&session::on_resolve, shared_from_this()));
   }
@@ -144,8 +146,13 @@ public:
 
   void on_read(beast::error_code ec, std::size_t bytes_transferred) {
     if(ec) {
-      fail(ec, "on_read error, ignoring");
-      do_read();
+      if (++error_cnt > 5) {
+	do_close();
+	
+      } else {
+	fail(ec, "on_read error, ignoring");
+	do_read();
+      }
     } else {
       std::string msg = beast::buffers_to_string(buffer_.data());
       cb_->recv(msg);
