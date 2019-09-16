@@ -127,12 +127,28 @@ def analyze(m):
     print(np.sqrt(sv_cov[1])/sum(np.sqrt(sv_cov[1])))
     print(np.dot(A0, sv_cov[2]))
     
+def pca_test(data):
+    Mean = np.mean(data, axis = 0)
+    print(Mean)
+    V = data - Mean
+    print(V)
+    C = np.dot(V.T, V)/(len(data) - 1)
+    Csv = np.linalg.svd(C)
+    Diag = Csv[1]
+    U = Csv[0]
+    print(U)
+    print(Diag/np.sum(Diag))
+    Proj = np.dot(V, U[0]).reshape((len(data),1))
+    print(Proj) # 
+    #Back = np.dot(U[0],Proj)
+    #print(Back)
+    
     
 def main():
     print("start")
     m = np.array([[3, 1], [1, 2], [4, 1], [5,2],[11,3],[18,4]])
-    analyze(m)
-    
+    #analyze(m)
+    pca_test(m)
 
 
 if __name__ == '__main__' :
