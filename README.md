@@ -28,16 +28,16 @@ access crytpo currency exchanges in C++ using websockets
     ./bin/general_listener ../config/server_config.json gdax </br>
 
 * __Exchange json configurations in server_config.json__</br>
-* _the executable __general_listener__ designed for using each exchanges json config</br>
-  * kraken </br>
+* the executable __general_listener__ designed for using each exchanges json config</br>
+  * __kraken__ </br>
     ```
      ./bin/general_listener ../config/server_config.json kraken
     ```
-  * bitstamp </br>
+  * __bitstamp__ </br>
     ```
     ./bin/general_listener ../config/server_config.json bitstamp
     ``` 
-  * coinbasepro (formely know as gdax) </br>
+  * __coinbasepro__ (formely know as gdax) </br>
     ```
     ./bin/general_listener ../config/server_config.json gdax
     ```
