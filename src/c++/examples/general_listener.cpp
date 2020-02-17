@@ -12,7 +12,7 @@
 #include <stdexcept>
 #include <memory>
 #include "config.hpp"
-#include "wsapi.hpp"
+#include <ws/wsapi.hpp>
 
 
 class MsgRecv : public wsapi_cb {
@@ -22,10 +22,14 @@ public:
   }
 };
 
+
+/**
+   subscribe to market data from a json configuration file
+**/
 int main(int argc, char **argv) {
-  if (argc <  3) {
-    std::cerr << "usage : <jsonFile> <name>" << std::endl;
-    std::cerr << "./build/bin/general_listener ../server_config.json gdax" << std::endl;
+  if (argc != 3) {
+    std::cerr << "usage:" << argv[0] << " <json_config> <exchange" << std::endl;
+    std::cerr << "example:" << argv[0] << "../config/server_config.json gdax" << std::endl;
     return 1;
   }
   int cnt = 1;

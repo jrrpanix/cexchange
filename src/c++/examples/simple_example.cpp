@@ -1,4 +1,4 @@
-#include "wsapi.hpp"
+#include <ws/wsapi.hpp>
 #include <iostream>
 
 //
