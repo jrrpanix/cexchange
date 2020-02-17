@@ -4,7 +4,7 @@ access crytpo currency exchanges in C++ using websockets
 * About
   * this git provides an extremely simple api wrapper class to make it easy write c++ websocket code </br>
   * by providing a wrapper around  boost/beast websockets </br>
-  * the objective is to get up in running rapidly in c++ </br>
+  * the objective is to get up and running rapidly in c++ </br>
   * src/c++/ws/wsapi.hpp </br>
   * there is a sample json conifuration file config/server_config.json </br>
   * this file has sample market data subscritpion configs for bitstamp/coinbasepro(formely gdax) </br>
