@@ -14,7 +14,7 @@ __Crytpo Currency exchange access in C++ using websockets__
   * general example </br>
     * put exchange subscription in json
     * https://github.com/jrrpanix/cexchange/tree/master/src/c++/examples/general_listener.cpp </br>
-  * websocket wraps boost/best instructions below on getting and building boost </br>
+  * websocket api wraps boost/beast websockets instructions below on getting and building boost </br>
   * json is parsed using c++ project rapidjson </br>
     * https://github.com/Tencent/rapidjson </br>
   * websocket libs also require libcrypto, libssl </br>
