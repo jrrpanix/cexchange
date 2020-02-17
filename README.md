@@ -2,13 +2,11 @@
 access crytpo currency exchanges in C++ using websockets
 
 * To Build and Run </br>
-* uses cmake </br>
-  * to build the c++ source (libs and apps) </br>
     mkdir build </br>
     cd build </br>
     cmake .. </br>
     make </br>
-
+    ./bin/simple_example </br>
 
 * 3rd Party Libraries
 
