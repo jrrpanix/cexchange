@@ -39,7 +39,7 @@ access crytpo currency exchanges in C++ using websockets
     ```
   * NOTE for all exchanges consult each exchange for different/advanced subscription options </br>
 
-* 3rd Party Libraries
+* __3rd Party Libraries__
 
   * boost </br>
     bulding and installing boost</br>
