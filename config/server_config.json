@@ -1,7 +1,15 @@
 {
     "active" : ["bitstamp", "gdax", "kraken"],
     "kraken": {
-	"subs": [{"event":"subscribe", "pair":["XBT/USD","XRP/USD","LTC/USD","BCH/USD"], "subscription" : {"name":"ticker"}}],
+	"subs": [
+	    {"event":"subscribe",
+	     "pair":["XBT/USD",
+		     "XRP/USD",
+		     "LTC/USD",
+		     "ETH/USD",
+		     "BCH/USD"],
+	     "subscription" : {"name":"ticker"}}
+	],
 	"host": "ws.kraken.com",
 	"port": "443"
     },
