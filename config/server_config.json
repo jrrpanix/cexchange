@@ -1,5 +1,10 @@
 {
-    "active" : ["bitstamp", "gdax"],
+    "active" : ["bitstamp", "gdax", "kraken"],
+    "kraken": {
+	"subs": [{"event":"subscribe", "pair":["XBT/USD","XRP/USD","LTC/USD","BCH/USD"], "subscription" : {"name":"ticker"}}],
+	"host": "ws.kraken.com",
+	"port": "443"
+    },
     "bitstamp":{
 	"subs": [
 	    {"event": "bts:subscribe", "data": {"channel": "live_trades_btcusd"}},
