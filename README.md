@@ -47,12 +47,20 @@ subscription = {"event": "bts:subscribe", "data": {"channel": "live_trades_btcus
 
 ```
 ```c++
- // derive a callback class from <ws/wsapi.hpp>
- // implement the recv method
+#include <ws/wsapi.hpp>
+#include <iostream>
 
+/**
+ subscribe to trades on bitstamp for btcusd
+ create callback class derived from wsapi_cb
+ print messages to std::cout
+**/
+
+ // derive a callback class from <ws/wsapi.hpp>
  class callback : public wsapi_cb{
   public:
 
+  // implement the recv method
   void recv(const std::string &msg) {
       std::cout << msg << std::endl;
   } 
