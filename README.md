@@ -39,13 +39,14 @@ access crytpo currency exchanges in C++ using websockets
 * /src/c++/examples/simple_example.cpp </br>
 
 ```
-this example subscribes to trades on ws.bitstamp.net.
-it uses the wsapi.hpp to specify the
+This example subscribes to trades on ws.bitstamp.net. It uses the wsapi.hpp to specify the
+host (ws.bitstamp.net) and port (443). NOTE not necessary to specify wss://ws.bitstamp.net.
+
+
 host  = ws.bitstamp.net
-(no need to specify the part wss:// as this code assumes thats the protocol) 
 port  = 443 
 subscription = {"event": "bts:subscribe", "data": {"channel": "live_trades_btcusd"}}"
-callback to recieve messages
+
 ```
 ```c++
  // derive a callback class from <ws/wsapi.hpp>
