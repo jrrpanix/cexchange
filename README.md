@@ -70,8 +70,24 @@ int main() {
   return 0;
 }
 
+```
+```
+mkdir build
+cd build
+cmake ..
+make
+./bin/simple_example
 
-
+sample output
+{"event":"bts:subscription_succeeded","channel":"live_trades_btcusd","data":{}}
+{"data": {"microtimestamp": "1565268956596198", "amount": 0.25381784, "buy_order_id": 3919329830, "sell_order_id": 3919330463, "amount_str": "0.25381784", "price_str": "11801.15", "timestamp": "1565268956", "price": 11801.15, "type": 1, "id": 95330837}, "event": "trade", "channel": "live_trades_btcusd"}
+{"data": {"microtimestamp": "1565268956812582", "amount": 1.33618216, "buy_order_id": 3919329830, "sell_order_id": 3919330485, "amount_str": "1.33618216", "price_str": "11801.15", "timestamp": "1565268956", "price": 11801.15, "type": 1, "id": 95330838}, "event": "trade", "channel": "live_trades_btcusd"}
+{"data": {"microtimestamp": "1565268956923715", "amount": 0.00677966, "buy_order_id": 3919224891, "sell_order_id": 3919330485, "amount_str": "0.00677966", "price_str": "11800.00", "timestamp": "1565268956", "price": 11800.0, "type": 1, "id": 95330839}, "event": "trade", "channel": "live_trades_btcusd"}
+{"data": {"microtimestamp": "1565268956986730", "amount": 1.12802033, "buy_order_id": 3919327467, "sell_order_id": 3919330485, "amount_str": "1.12802033", "price_str": "11800.00", "timestamp": "1565268956", "price": 11800.0, "type": 1, "id": 95330840}, "event": "trade", "channel": "live_trades_btcusd"}
+{"data": {"microtimestamp": "1565268960656759", "amount": 0.00610024, "buy_order_id": 3919330497, "sell_order_id": 3919330626, "amount_str": "0.00610024", "price_str": "11801.17", "timestamp": "1565268960", "price": 11801.17, "type": 1, "id": 95330842}, "event": "trade", "channel": "live_trades_btcusd"}
+{"data": {"microtimestamp": "1565268961048255", "amount": 0.00423119, "buy_order_id": 3919330632, "sell_order_id": 3919330667, "amount_str": "0.00423119", "price_str": "11806.02", "timestamp": "1565268961", "price": 11806.02, "type": 1, "id": 95330843}, "event": "trade", "channel": "live_trades_btcusd"}
+{"data": {"microtimestamp": "1565268961342724", "amount": 0.00134182, "buy_order_id": 3919219476, "sell_order_id": 3919330719, "amount_str": "0.00134182", "price_str": "11795.00", "timestamp": "1565268961", "price": 11795.0, "type": 1, "id": 95330844}, "event": "trade", "channel": "live_trades_btcusd"}
+{"data": {"microtimestamp": "1565268961407192", "amount": 9.22977042, "buy_order_id": 3919217568, "sell_order_id": 3919330719, "amount_str": "9.22977042", "price_str": "11794.07", "timestamp": "1565268961", "price": 11794.07, "type": 1, "id": 95330845}, "event": "trade", "channel": "live_trades_btcusd"}
 ```
 
 
