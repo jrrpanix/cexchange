@@ -6,7 +6,7 @@ access crytpo currency exchanges in C++ using websockets
   * by providing a wrapper around  boost/beast websockets </br>
   * the objective is to get up and running rapidly in c++ </br>
   * src/c++/ws/wsapi.hpp </br>
-  * there is a sample json conifuration file https://github.com/jrrpanix/cexchange/config/server_config.json </br>
+  * there is a sample json conifuration file https://github.com/jrrpanix/cexchange/tree/master/config/server_config.json </br>
   * this file has sample market data subscritpion configs for bitstamp/coinbasepro(formely gdax) </br>
   * the main requirement is getting boost </br>
   * json is parsed using c++ project rapidjson https://github.com/Tencent/rapidjson </br>
