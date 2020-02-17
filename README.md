@@ -1,5 +1,5 @@
-# cexchange - c++ for crypto currency market data
-access crytpo currency exchanges in C++ using websockets
+# cexchange - C++ for Crypto Currency Market Data
+__Crytpo Currency exchange access in C++ using websockets__
 
 * __About__
   * this git provides an extremely simple api wrapper class to make it easy write c++ websocket code </br>
