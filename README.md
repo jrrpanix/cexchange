@@ -1,4 +1,4 @@
-# cexchange
+# cexchange - c++ for crypto currency market data
 access crytpo currency exchanges in C++ using websockets
 
 * To Build and Run </br>
