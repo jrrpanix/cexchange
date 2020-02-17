@@ -24,6 +24,14 @@ access crytpo currency exchanges in C++ using websockets
     ./bin/simple_example </br>
     ./bin/general_listener ../config/server_config.json gdax </br>
 
+* Simple Exchange json configurations in server_config.json</br>
+  * kraken </br>
+    * ./bin/general_listener ../config/server_config.json kraken </br>
+  * bitstamp </br>
+    * ./bin/general_listener ../config/server_config.json bitstamp </br>
+  * coinbasepro (formely know as gdax) </br>
+    * ./bin/general_listener ../config/server_config.json gdax </br>
+  * NOTE for all exchanges consult each exchange for different/advanced subscription options </br>
 
 * 3rd Party Libraries
 
