@@ -6,6 +6,8 @@ access crytpo currency exchanges in C++ using websockets
   * by providing a wrapper around  boost/beast websockets </br>
   * the objective is to get up in running rapidly in c++ </br>
   * src/c++/ws/wsapi.hpp </br>
+  * the main requirement is getting boost </br>
+  * websocket libs also require libcrypto, libssl </br>
 
 * To Build and Run </br>
     mkdir build </br>
