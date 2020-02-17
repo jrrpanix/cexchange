@@ -20,12 +20,17 @@ __Crytpo Currency exchange access in C++ using websockets__
   * websocket libs also require libcrypto, libssl </br>
 
 * __To Build and Run__ </br>
-    mkdir build </br>
-    cd build </br>
-    cmake .. </br>
-    make </br>
-    ./bin/simple_example </br>
-    ./bin/general_listener ../config/server_config.json gdax </br>
+```
+    mkdir build
+    cd build
+    cmake ..
+    make
+    # running executables
+    ./bin/simple_example
+    ./bin/general_listener ../config/server_config.json gdax 
+    ./bin/general_listener ../config/server_config.json bitstamp
+    ./bin/general_listener ../config/server_config.json kraken
+```
 
 * __Exchange json configurations in server_config.json__</br>
 * the executable __general_listener__ designed for using each exchanges json config</br>
