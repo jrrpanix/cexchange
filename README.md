@@ -1,7 +1,7 @@
 # cexchange - c++ for crypto currency market data
 access crytpo currency exchanges in C++ using websockets
 
-* About
+* __About__
   * this git provides an extremely simple api wrapper class to make it easy write c++ websocket code </br>
   * by providing a wrapper around  boost/beast websockets </br>
   * the objective is to get up and running rapidly in c++ </br>
@@ -11,12 +11,15 @@ access crytpo currency exchanges in C++ using websockets
     * https://github.com/jrrpanix/cexchange/tree/master/config/server_config.json </br>
   * simple example </br>
     * https://github.com/jrrpanix/cexchange/tree/master/src/c++/examples/simple_example.cpp </br>
+  * general example </br>
+    * put exchange subscription in json
+    * https://github.com/jrrpanix/cexchange/tree/master/src/c++/examples/general_listener.cpp </br>
   * websocket wraps boost/best instructions below on getting and building boost </br>
   * json is parsed using c++ project rapidjson </br>
     * https://github.com/Tencent/rapidjson </br>
   * websocket libs also require libcrypto, libssl </br>
 
-* To Build and Run </br>
+* __To Build and Run__ </br>
     mkdir build </br>
     cd build </br>
     cmake .. </br>
@@ -24,7 +27,8 @@ access crytpo currency exchanges in C++ using websockets
     ./bin/simple_example </br>
     ./bin/general_listener ../config/server_config.json gdax </br>
 
-* Simple Exchange json configurations in server_config.json</br>
+* __Exchange json configurations in server_config.json__</br>
+* _the executable __general_listener__ designed for using each exchanges json config</br>
   * kraken </br>
     ```
      ./bin/general_listener ../config/server_config.json kraken
@@ -37,11 +41,11 @@ access crytpo currency exchanges in C++ using websockets
     ```
     ./bin/general_listener ../config/server_config.json gdax
     ```
-  * NOTE for all exchanges consult each exchange for different/advanced subscription options </br>
+  * __consult each exchange for different/advanced subscription options__ </br>
 
 * __3rd Party Libraries__
 
-  * boost </br>
+  * __boost__ </br>
     bulding and installing boost</br>
     wget https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.tar.gz  </br>
     tar -xzf boost_1_70_0.tar.gz </br>
@@ -51,13 +55,13 @@ access crytpo currency exchanges in C++ using websockets
 
 
   * These are in the include src tree
-    * rapidjson </br>
+    * __rapidjson__ </br>
       c++ header only JSON parser, fastest of ones I tested and complete from SPEC</br>
       https://github.com/Tencent/rapidjson </br>
       used for parsing market data from exchanges which are in JSON format </br>
 
 
-* libs </br>
+* __libs__ </br>
   * pthread </br>
   * libcrypto </br>
   * libssl </br>
