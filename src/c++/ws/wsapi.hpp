@@ -30,9 +30,10 @@ public:
   void set_host(const std::string &host);
   void set_port(const std::string &port);
   void set_subs(const std::vector<std::string> &subs);
-
+  void set_cb(wsapi_cb *cb);
+  
   /*
-    start the websocker
+    start the websocket
   */
   void start();
 

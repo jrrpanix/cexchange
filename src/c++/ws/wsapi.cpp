@@ -207,6 +207,10 @@ void wsapi::set_subs(const std::vector<std::string> &subs) {
   subs_=subs;
 }
 
+void wsapi::set_cb(wsapi_cb *cb) {
+  cb_=cb;
+}
+
 void wsapi::start() {
   
   net::io_context ioc;
@@ -214,12 +218,12 @@ void wsapi::start() {
   // The SSL context is required, and holds certificates
   ssl::context ctx{ssl::context::tlsv12_client};
   
-  // This holds the root certificate used for verification
+  // This holds the ssl certificate used for verification
   if (certfile_.length() > 0) {
     // common on linux is this one "/usr/lib/ssl/certs/653b494a.0"
     std::ifstream t(certfile_.c_str());
     std::string cert((std::istreambuf_iterator<char>(t)),
-		    std::istreambuf_iterator<char>());
+		     std::istreambuf_iterator<char>());
     boost::system::error_code ec;
     ctx.add_certificate_authority(boost::asio::buffer(cert.data(), cert.size()), ec);
     if(ec)
