@@ -39,9 +39,9 @@ __Crytpo Currency exchange access in C++ using websockets__
    # refer to this thread on them not being for production
    # https://github.com/boostorg/beast/issues/1702
 
-   # the example code defaults to them but its recommeded to use
-   # other ssl certificates
-   # for example on linux ssl certificates can be found here:
+   # the example code defaults to them but its not recommeded for prod
+
+   # on linux ssl certificates can be found here:
    #  /usr/lib/ssl/certs/
    # python3 will load this one on websockets
    #  /usr/lib/ssl/certs/653b494a.0
