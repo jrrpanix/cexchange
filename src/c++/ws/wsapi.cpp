@@ -59,7 +59,6 @@ public:
   explicit session(net::io_context& ioc, ssl::context& ctx)
     : resolver_(net::make_strand(ioc))
     , ws_(net::make_strand(ioc), ctx) {
-    //SSL_set_tlsext_host_name(ws_.native_handle(), host_.c_str());
   }
 
   // Start the asynchronous operation
