@@ -32,6 +32,34 @@ __Crytpo Currency exchange access in C++ using websockets__
     ./bin/general_listener ../config/server_config.json kraken
 ```
 
+* __SSL Certificates__ </br>
+```
+   # the example code comes with a file called root_certificates.hpp
+
+   # refer to this thread on them not being for production
+   # https://github.com/boostorg/beast/issues/1702
+
+   # the example code defaults to them but its recommeded to use
+   # other ssl certificates
+   # for example on linux ssl certificates can be found here:
+   #  /usr/lib/ssl/certs/
+   # python3 will load this one on websockets
+   #  /usr/lib/ssl/certs/653b494a.0
+
+   # also note on the SSL handsake this error was occurring
+
+   # ssl_handshake: sslv3 alert handshake failure
+
+   # it was fixed by the following lines of code (refer to issue 1702)
+
+   if(! SSL_set_tlsext_host_name(ws_.next_layer().native_handle(), host_.c_str())) {
+     std::cerr << "SSL_set_tlsext_host_name: error " << std::endl;
+     return;
+  }
+
+```
+
+
 * __Exchange json configurations in server_config.json__</br>
 * the executable __general_listener__ designed for using each exchanges json config</br>
   * __kraken__ </br>
