@@ -62,7 +62,8 @@
 		}
 	    ]
 	}],
-	"host": "ws-feed.gdax.com",
+	"host": "ws-feed.pro.coinbase.com",
+	"host_old": "ws-feed.gdax.com",
 	"port": "443"
     }
 }
