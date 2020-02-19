@@ -26,6 +26,8 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <fstream>
+#include <streambuf>
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
@@ -57,6 +59,7 @@ public:
   explicit session(net::io_context& ioc, ssl::context& ctx)
     : resolver_(net::make_strand(ioc))
     , ws_(net::make_strand(ioc), ctx) {
+    //SSL_set_tlsext_host_name(ws_.native_handle(), host_.c_str());
   }
 
   // Start the asynchronous operation
@@ -90,6 +93,11 @@ public:
     // Set a timeout on the operation
     beast::get_lowest_layer(ws_).expires_after(std::chrono::seconds(30));
 
+    // this line is needed for coinbase, some exchanges dont require this
+    if(! SSL_set_tlsext_host_name(ws_.next_layer().native_handle(), host_.c_str())) {
+      std::cerr << "SSL_set_tlsext_host_name: error " << std::endl;
+      return;
+    }
     // Perform the SSL handshake
     ws_.next_layer().async_handshake(ssl::stream_base::client,beast::bind_front_handler(&session::on_ssl_handshake,shared_from_this()));
   }
@@ -172,22 +180,56 @@ public:
   }
 };
 
-wsapi::wsapi(const char *host, const char *port, const char *sub, wsapi_cb *cb)
-  :host_(host), port_(port), subs_(1,sub), cb_(cb) {
+wsapi::wsapi(){
 }
 
-wsapi::wsapi(const char *host, const char *port, const std::vector<std::string> &subs, wsapi_cb *cb)
-  :host_(host), port_(port), subs_(subs), cb_(cb) {
+wsapi::wsapi(const char *host, const char *port, const char *sub, wsapi_cb *cb, const char *certfile)
+  :host_(host), port_(port), certfile_(certfile), subs_(1,sub), cb_(cb) {
+}
+
+wsapi::wsapi(const char *host, const char *port, const std::vector<std::string> &subs, wsapi_cb *cb, const char *certfile)
+  :host_(host), port_(port), certfile_(certfile), subs_(subs), cb_(cb) {
+}
+
+void wsapi::set_cert_file(const std::string &certfile){
+  certfile_=certfile;
+}
+
+void wsapi::set_host(const std::string &host) {
+  host_=host;
+}
+
+void wsapi::set_port(const std::string &port){
+  port_=port;
+}
+
+void wsapi::set_subs(const std::vector<std::string> &subs) {
+  subs_=subs;
 }
 
 void wsapi::start() {
+  
   net::io_context ioc;
   
   // The SSL context is required, and holds certificates
   ssl::context ctx{ssl::context::tlsv12_client};
   
   // This holds the root certificate used for verification
-  load_root_certificates(ctx);
+  if (certfile_.length() > 0) {
+    // common on linux is this one "/usr/lib/ssl/certs/653b494a.0"
+    std::ifstream t(certfile_.c_str());
+    std::string cert((std::istreambuf_iterator<char>(t)),
+		    std::istreambuf_iterator<char>());
+    boost::system::error_code ec;
+    ctx.add_certificate_authority(boost::asio::buffer(cert.data(), cert.size()), ec);
+    if(ec)
+      throw boost::system::system_error{ec};
+  } else {
+    // this one is a default and is not guaranteed to be sucessful
+    // see these comments here on the default root certificate
+    // https://github.com/boostorg/beast/issues/1702
+    load_root_certificates(ctx);
+  }
   
   // Launch the asynchronous operation 
   std::make_shared<session>(ioc, ctx)->run(host_.c_str(), port_.c_str(), subs_, cb_);
