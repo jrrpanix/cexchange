@@ -12,7 +12,8 @@ __Crytpo Currency exchange access in C++ using websockets__
   * simple example </br>
     * https://github.com/jrrpanix/cexchange/tree/master/src/c++/examples/simple_example.cpp </br>
   * general example </br>
-    * put exchange subscription in json
+    * the quickest most general way to get going </br>
+    * put then exchange subscription in json following format in server_config.json </br>
     * https://github.com/jrrpanix/cexchange/tree/master/src/c++/examples/general_listener.cpp </br>
   * websocket api wraps boost/beast websockets instructions below on getting and building boost </br>
   * json is parsed using c++ project rapidjson </br>
@@ -42,14 +43,16 @@ __Crytpo Currency exchange access in C++ using websockets__
    # the example code defaults to them but its not recommeded for prod
 
    # on linux ssl certificates can be found here:
-   #  /usr/lib/ssl/certs/
+   # /usr/lib/ssl/certs/ and /usr/share/ca-certificates/
    # python3 will load this one on websockets
-   #  /usr/lib/ssl/certs/653b494a.0
+   # /usr/lib/ssl/certs/Baltimore_CyberTrust_Root.pem -> /usr/share/ca-certificates/mozilla/Baltimore_CyberTrust_Root.crt
+   # /usr/lib/ssl/certs/653b494a.0 -> Baltimore_CyberTrust_Root.pem
+   # /usr/lib/ssl/certs/653b494a.0
 
-   # also note on the SSL handsake this error was occurring
-
-   # ssl_handshake: sslv3 alert handshake failure
-
+   # also note on the SSL handsake this error was occurring on coinbasepro websockets
+   #
+   #     ssl_handshake: sslv3 alert handshake failure
+   #
    # it was fixed by the following lines of code (refer to issue 1702)
 
    if(! SSL_set_tlsext_host_name(ws_.next_layer().native_handle(), host_.c_str())) {
