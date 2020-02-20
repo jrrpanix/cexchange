@@ -107,8 +107,8 @@ __Crytpo Currency exchange access in C++ using websockets__
   * librt </br>
   * boost </br>
 
-
-* /src/c++/examples/simple_example.cpp </br>
+* __simple exmaple__
+* https://github.com/jrrpanix/cexchange/tree/master/src/c++/examples/simple_example.cpp </br>
 
 ```
 This example subscribes to trades on ws.bitstamp.net. It uses the wsapi.hpp to specify the
