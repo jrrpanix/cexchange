@@ -79,13 +79,16 @@ __Crytpo Currency exchange access in C++ using websockets__
 * __3rd Party Libraries__
 
   * __boost__ </br>
-    bulding and installing boost</br>
-    wget https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.tar.gz  </br>
-    tar -xzf boost_1_70_0.tar.gz </br>
-    cd boost_1_70_0 </br>
-    ./bootstrap.sh  # build boost build engine </br>
-    ./b2            # complies boost /usr/local/lib and /usr/local/include </br>
-
+  ```
+    # bulding and installing boost
+    # latest release as of 2/19/2020
+    wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
+    tar -xzf boost_1_72_0.tar.gz
+    cd boost_1_72_0 </br>
+    ./bootstrap.sh     # build boost build engine
+    ./b2               # complies boost 
+    sudo ./b2 install  # /usr/local/lib and /usr/local/include
+   ```
 
   * These are in the include src tree
     * __rapidjson__ </br>
