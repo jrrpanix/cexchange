@@ -35,29 +35,67 @@ __Crytpo Currency exchange access in C++ using websockets__
 
 * __SSL Certificates__ </br>
 ```
-   # the example code comes with a file called root_certificates.hpp
-
-   # refer to this thread on them not being for production
-   # https://github.com/boostorg/beast/issues/1702
-
-   # the example code defaults to them but its not recommeded for prod
-
-   # on linux ssl certificates can be found here:
-   # /usr/lib/ssl/certs/ and /usr/share/ca-certificates/
-   # python3 will load this one on websockets
-   # /usr/lib/ssl/certs/Baltimore_CyberTrust_Root.pem -> /usr/share/ca-certificates/mozilla/Baltimore_CyberTrust_Root.crt
-   # /usr/lib/ssl/certs/653b494a.0 -> Baltimore_CyberTrust_Root.pem
-   # /usr/lib/ssl/certs/653b494a.0
-
-   # also note on the SSL handsake this error was occurring on coinbasepro websockets
+   # TLDR; if you run into a problem with ssl handshake read this
+   #       and that the default root_certificates.hpp not recommended for prod   
+   # 
+   # mac, windows and linux machines contain trusted root certificates
+   # on ubuntu linux these certificates are found in
    #
-   #     ssl_handshake: sslv3 alert handshake failure
+   #  /usr/share/ca-certificates/
    #
-   # it was fixed by the following lines of code (refer to issue 1702)
+   # with symbolic links to them in the directory
+   #
+   #  /usr/lib/ssl/certs/
+   #
+   # when an ssl handshake is done it requires a certificate_authority
+   # for example if one is runing a secure websocket in python wss://
+   # python3 will look for trusted root certificates in /usr/lib/ssl/certs and load one of them
+   # on an example linux server running ubuntu a python3 process opening a websocket
+   # using strace reveals a call to open("/usr/lib/ssl/certs/653b494a.0"..)
+   # examining the file structure
+   
+   /usr/lib/ssl/certs/653b494a.0
+   /usr/lib/ssl/certs/653b494a.0 -> Baltimore_CyberTrust_Root.pem
+   /usr/lib/ssl/certs/Baltimore_CyberTrust_Root.pem -> /usr/share/ca-certificates/mozilla/Baltimore_CyberTrust_Root.crt
 
-   if(! SSL_set_tlsext_host_name(ws_.next_layer().native_handle(), host_.c_str())) {
-     std::cerr << "SSL_set_tlsext_host_name: error " << std::endl;
-     return;
+   # this is done under the covers and most users don't realize this is going on.
+   # this code comes with a file called "root_certificates.hpp"
+   # it contains the the signatures of trusted certificates and will used these in the ssl handshake by
+   # default.  its not gurauateed to work and is "not recommended for production"
+   # refer to this discusson thread https://github.com/boostorg/beast/issues/1702
+   #
+   # the wsapi.hpp is set up to allow the user to speficfy a trusted root certificate file
+   # upon creation of wsapi speficy the path of the root certificate, the code will then read it and use
+   # it in the ssl handshake.  If you run into problems with an ssl handshake the first thing to do
+   # is to try certificates on your system instead of letting it default to "root_certificates.hpp".
+
+   # example using different root certificate options
+
+  const char *host = "ws.bitstamp.net";
+  const char *port = "443";
+  const char *text = "{\"event\": \"bts:subscribe\", \"data\": {\"channel\": \"live_trades_btcusd\"}}";
+  callback cb;
+
+  // uses the default rootcertificate.hpp because no cert spefified
+  wsapi ws0(host, port, text, &cb); 
+
+  // create websocket using cert on system
+  const char *cert_file_linux = "/usr/lib/ssl/certs/653b494a.0";
+  wsapi ws1(host, port, text, &cb, cert_file_linux); 
+
+  
+  # Notes on resolving ssl handshake error on coinbasepro 
+  #
+  # an earlier version of this code was running into the following error on coinbasepro 
+
+     ssl_handshake: sslv3 alert handshake failure
+
+  # it was fixed by adding the following lines of code right before the ssl handshake
+  # refer to https://github.com/boostorg/beast/issues/1702
+
+  if(! SSL_set_tlsext_host_name(ws_.next_layer().native_handle(), host_.c_str())) {
+    std::cerr << "SSL_set_tlsext_host_name: error " << std::endl;
+    return;
   }
 
 ```
