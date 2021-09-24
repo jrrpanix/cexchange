@@ -121,7 +121,10 @@ __Crytpo Currency exchange access in C++ using websockets__
 
   * __boost__ </br>
   ```
-    # bulding and installing boost
+    # as of 09/24/2021 
+    wget https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.gz
+  
+    # bulding and installing boost, current source tested with this version
     # latest release as of 2/19/2020
     wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz
     tar -xzf boost_1_72_0.tar.gz
