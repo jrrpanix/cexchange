@@ -1,10 +1,3 @@
-//
-// Copyright (c) 2019 Cornelia Consulting LLC.
-//
-// Distributed under MIT License
-//
-// Official repository: https://github.com/jrrpanix/cexchange
-
 #include "config.hpp"
 #include <fstream>
 #include <rapidjson/stringbuffer.h> 
